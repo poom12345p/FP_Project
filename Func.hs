@@ -18,9 +18,17 @@ import System.Console.ANSI
 -- colored c s = color c ++ s ++ "\x1b[0m"
 
 
+psqc :: ColorIntensity->Color->Color->Char->IO()
+psqc ct c1 c2 c = do
+                    --putStrLn ""
+                    setSGR [SetColor Background ct c1]
+                    setSGR [SetColor Foreground ct c2]
+                    --cursorUp 1
+                    putChar(c)
+                    setSGR [Reset]  -- Reset to default colour scheme
 
 
-psq :: ColorIntensity->Color->Int->IO()
+psq :: ColorIntensity->Color->Float->IO()
 psq c1 c2 i = do
         
          if i > 0
@@ -29,9 +37,9 @@ psq c1 c2 i = do
                     --putStrLn ""
                     setSGR [SetColor Background c1 c2]
                     --cursorUp 1
-                    putStr("  ")
+                    putStr(" ")
                     setSGR [Reset]  -- Reset to default colour scheme
-                    psq' c1 c2 (i-1)
+                    psq' c1 c2 (round (i*2)-1)
              else
                  return()
 
@@ -41,7 +49,7 @@ psq' c1 c2 i = do
                 then
                     do
                         setSGR [SetColor Background c1 c2]
-                        putStr("  ")
+                        putStr(" ")
                         setSGR [Reset]  -- Reset to default colour scheme
                         psq' c1 c2 (i-1)
                 else
@@ -51,7 +59,6 @@ psq' c1 c2 i = do
 drawstar ::Int->Int->IO()
 drawstar x y = do
             saveCursor
-
             -- gotoxy(p.x+4,p.y-6);
             setCursorPosition (y-6) (x+4)
             -- psq(239,1);
@@ -80,7 +87,7 @@ drawstar x y = do
             psq Vivid White 1
             -- psq(239,1);
             psq Vivid Yellow 1
-            -- psq(240,1);
+            -- gotoxy(p.x+6,p.y-3);
             psq Vivid White 1
             -- psq(239,1);
             psq Vivid Yellow 1
@@ -104,6 +111,6 @@ drawstar x y = do
             setCursorPosition (y-2) (x+12)
             -- psq(239,1);
             psq Vivid Yellow 1
-            restoreCursor
+            --restoreCursor
 
 
