@@ -5,7 +5,7 @@ import Data.IORef
 import System.IO (hSetBuffering, hSetEcho, stdin, BufferMode(NoBuffering), getChar, hReady)
 
 import Func
-
+import Logogame
 
 main :: IO ()
 main = do 
@@ -33,6 +33,8 @@ showmeneu  c = do
 	-- int pX=60,pY=10;
 	let pX = 60
 	let pY = 10
+
+        shownamegame 0 0
 	-- int chosse=0;
 	-- char comd=0;
 	-- gotoxy(pX+5,6+pY);
@@ -110,6 +112,7 @@ showmeneu  c = do
                                 psq Vivid Yellow 1
 
         restoreCursor
+        setCursorPosition (100) (0)	
         a <- getChar
         if a == 'w'
                 then 
@@ -126,8 +129,12 @@ showmeneu  c = do
                 else 
                       showmeneu c
 
-
+-- playTurn t = do
+--                 key <- getChar
+--                 if key == 'r'
+--                         then
+--                         else
+--                         playTurn t
                                        
-
-plus:: Int -> Int->Int
-plus x y = x+y
+-- playGame::MAP -> IO Int
+-- playGame = do

@@ -7,7 +7,6 @@ import System.Console.ANSI
 cremap chosse = do
     saveCursor
     clearScreen
--- 	int max,ppl,li,rd;
     let max = 0
     let ppl = 0
     let li = 0
@@ -16,10 +15,7 @@ cremap chosse = do
 -- 	int pX=60,pY=5;
     let pX = 60
     let pY = 5
--- 	int chosse=0;
--- 	char comd=0;
     let comd = 0
--- 	gotoxy(pX-1,pY);
     setCursorPosition (pY) (pX-1)
 -- 	cout<<"Choose map size";
     print "Choose map size"
@@ -68,63 +64,40 @@ cremap chosse = do
     let ppl = 6
     let li = 5
     let rd = 6
--- 	while(comd != 13)
--- 	{
-
--- 		colorit(15);
-        setSGR [SetColor Foreground Vivid White] 
-	    setSGR [SetColor Background Dull Black]
+    setSGR [SetColor Foreground Vivid White] 
+    setSGR [SetColor Background Dull Black]
 -- 		gotoxy(pX+3,10+pY);	
-        setCursorPosition (pY+10) (pX+3)
+    setCursorPosition (pY+10) (pX+3)
 -- 		cout<<" Small ";
-        print " Small "
-		
--- 		gotoxy(pX+1,14+pY);
-        setCursorPosition (pY+1) (pX+14)
+    print " Small "
+
+    setCursorPosition (pY+1) (pX+14)
 -- 		cout<<" Standard ";
-        print " Standard "
+    print " Standard "
 		
 -- 		gotoxy(pX+3,18+pY);
-        setCursorPosition (pY+3) (pX+18)
+    setCursorPosition (pY+3) (pX+18)
 -- 		cout<<" Large ";
         print " Large "
 		
 -- 		gotoxy(pX,22+pY);
-        setCursorPosition (pY+22) (pX)
+    setCursorPosition (pY+22) (pX)
 -- 		cout<<" Costom Map ";
-		print " Costom Map "
+	print " Costom Map "
 
--- 		switch(chosse)
--- 		{
--- 			case 0:
--- 			gotoxy(pX+3,10+pY);
--- 			psq(224,0.5);
--- 			colorit(12);
--- 			cout<<"Small";
--- 			psq(224,0.5);
--- 			max =30;ppl=6;li=5;rd=6;
--- 			break;
-        if chosse == 0
-                then 
-                    do
-                        setCursorPosition (pY+10) (pX+3)
-                        psq Vivid Yellow 1
-                        setSGR [SetColor Foreground Vivid Red] 
-	                    setSGR [SetColor Background Dull Black]
-                        print "Small"
-                        psq Vivid Yellow 1
-                        let max =30
-                        let ppl=6
-                        let li=5
-                        let rd=6
--- 			case 1:
--- 			gotoxy(pX+1,14+pY);
--- 			psq(224,0.5);
--- 			colorit(12);
--- 			cout<<"Standard";
--- 			max =50;ppl=8;li=8;rd=8;
--- 			psq(224,0.5);
--- 			break;
+    if chosse == 0
+        then 
+            do
+                setCursorPosition (pY+10) (pX+3)
+                psq Vivid Yellow 1
+                setSGR [SetColor Foreground Vivid Red] 
+	            setSGR [SetColor Background Dull Black]
+                print "Small"
+                psq Vivid Yellow 1
+                let max =30
+                let ppl=6
+                let li=5
+                let rd=6
             else if chosse == 1
                 then 
                     do
@@ -138,16 +111,6 @@ cremap chosse = do
                         let ppl=8
                         let li=8
                         let rd=8
--- 			case 2: 
--- 			gotoxy(pX+3,18+pY);
--- 			colorit(12);	
--- 			psq(224,0.5);
--- 			colorit(12);
--- 			cout<<"Large";
--- 			max =100;ppl=10;li=10;rd=10;
--- 			psq(224,0.5);
--- 			break;
--- 			case 3:
             else if chosse == 2
                 then 
                     do
@@ -161,36 +124,28 @@ cremap chosse = do
                         let ppl=10
                         let li=10
                         let rd=10
--- 			gotoxy(pX,22+pY);
--- 			colorit(12);	
--- 			psq(224,0.5);
--- 			colorit(12);
--- 			cout<<"Costom Map";
--- 			psq(224,0.5);
--- 			break;
-            else if chosse == 3
-                then 
-                    do
-                        setCursorPosition (pY+22) (pX)
-                        psq Vivid Yellow 1
-                        setSGR [SetColor Foreground Vivid Red] 
-	                    setSGR [SetColor Background Dull Black]
-                        print "Costom Map"
-                        psq Vivid Yellow 1
-            else do return ()
+            else 
+                do
+                    setCursorPosition (pY+22) (pX)
+                    psq Vivid Yellow 1
+                    setSGR [SetColor Foreground Vivid Red] 
+	                setSGR [SetColor Background Dull Black]
+                    print "Costom Map"
+                    psq Vivid Yellow 1
+
 -- 			default:
 -- 			break;
 -- 		}
 -- 		colorit(15);
-        setSGR [SetColor Foreground Vivid White] 
-	    setSGR [SetColor Background Dull Black]
+    setSGR [SetColor Foreground Vivid White] 
+	setSGR [SetColor Background Dull Black]
 -- 		comd = getch();
-        a <- getChar
+    a <- getChar
 -- 		PlaySound(TEXT("sound/menu.wav"),NULL,SND_SYNC);
 -- 		if(comd =='w')chosse--;
 -- 		else if(comd == 's')chosse++;
 -- 		chosse = (4+(chosse))%4;
-        if a == 'w'
+    if a == 'w'
             then 
                 cremap ((4+(chosse-1)) `mod` 4)
             else if a == 'w'
@@ -212,10 +167,6 @@ cremap chosse = do
         then
             do
                 clearScreen
-
--- 		system("cls");
--- 		do{	
--- 			int pX =40,pY=5;
                 let pX = 40
                 let pY = 5
 -- 			gotoxy(pX+5,pY);
@@ -252,7 +203,8 @@ cremap chosse = do
                             setSGR [SetColor Foreground Vivid White] 
 	                        setSGR [SetColor Background Dull Black]
 -- 			}
-                    else do Nothing
+                    else 
+                        return ()
 -- 			gotoxy(pX,pY);
                 setCursorPosition (pY) (pX)
 -- 			cout<<"How many pads do you want?";

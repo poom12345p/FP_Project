@@ -1,34 +1,9 @@
-module Func where
+import Func 
 import Control.Monad
 import System.IO
 import System.Console.ANSI
 
-psq :: ColorIntensity->Color->Int->IO()
-psq c1 c2 i = do
-        
-         if i > 0
-             then
-                 do
-                    --putStrLn ""
-                    setSGR [SetColor Background c1 c2]
-                    --cursorUp 1
-                    putStr("  ")
-                    setSGR [Reset]  -- Reset to default colour scheme
-                    psq' c1 c2 (i-1)
-             else
-                 return()
 
-psq' :: ColorIntensity->Color->Int->IO()
-psq' c1 c2 i = do
-        if i > 0
-                then
-                    do
-                        setSGR [SetColor Background c1 c2]
-                        putStr("  ")
-                        setSGR [Reset]  -- Reset to default colour scheme
-                        psq' c1 c2 (i-1)
-                else
-                        return()
 
 draw x y positiony positionx wide color = do 
                 setCursorPosition (y+positiony) (x+positionx-18)

@@ -1,7 +1,9 @@
 module Game where
 import System.Console.ANSI
+import System.IO.Unsafe
+import System.Random
 import Func
-
+import DrawDice
 data Pad = Pad { color :: Color
                      , x :: Int
                      , y :: Int
@@ -12,21 +14,27 @@ data Pad = Pad { color :: Color
                      } deriving Show
 
 data Player= Player { name :: String
-                     , color_p :: Color
-                     , x_p :: Int
-                     , y_p :: Int
+                    --  , color :: Color
+                     , xP :: Int
+                     , yP :: Int
                      , x_stat :: Int
                      , y_stat :: Int
                      , color_b ::  Color
                      , color_f ::  Color
-                     , face :: String
-                     , maxpad :: Int
-                     , num_player :: Int
+                     , face0 :: Char
+                     , face1 :: Char
+                     , maxpadP :: Int
+                     , numP :: Int
                      , no :: Int
-                     , pad :: Pad
+                     , padP :: Pad
                      , myturn :: Int
+                     , walk :: Bool
                      } deriving Show
+player1 = Player "p1" 20 20 1 1 Red Blue '>' '<' 10 1 1 myPad 1 True
 myPad = Pad Yellow 20 20 3 4 'L' []
+
+rand::Int->Int->Int
+rand a b =  unsafePerformIO (getStdRandom (randomR (a, b)))
 
 drawPad :: Pad -> Int -> IO()
 drawPad pad last = do
@@ -134,5 +142,11 @@ drawPad pad last = do
 			setSGR [SetColor Background Dull Black] 
 		else
 			return()
+
+rolldice::Int->Int->IO Int
+rolldice x y =do
+                let dice = rand 1 6
+                drawDice dice x y  
+                return dice
 
 
