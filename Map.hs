@@ -21,13 +21,6 @@ data Map= M {   link :: Int,
                } deriving (Show)
 
 
-
-main = do
-        let c  = rand 0 10
-        print(c) 
-
-
-
         
 newmap:: Int-> Int-> Int-> Map
 newmap mp pl l  =  let pool =[1..mp] in
@@ -90,7 +83,13 @@ createPads mp pl l  sl ll= [setpad i pl mp sl ll|i<-[1..mp]]
                         
 
 setpad:: Int->Int->Int->[Linkpad]->[Linkpad]->Pad
-setpad i ppl mp sl ll= Pad (setpadColor i) ((250-(18*ppl)) `div` 2) ( (7*((mp-(mp `mod` ppl)) `div` ppl+1))-(7*((i-(i `mod` ppl)) `div` ppl))) (0) (i) ('N') []
+setpad i ppl mp sl ll= Pad (setpadColor i) (setpX (i-1) ppl) ((7*((mp-(mp `mod` ppl)) `div` ppl+1))-(7*(((i-1)-((i-1) `mod` ppl)) `div` ppl))) (0) (i) ('N') []
+
+
+setpX:: Int ->Int-> Int
+setpX i ppl
+                | (((i-(i `mod` ppl)) `div` ppl) `mod` 2) == 0 =18*(i `mod` ppl)+((250-(18*ppl)) `div` 2)
+                | otherwise = (18* ((ppl-1)-(i `mod` ppl)))+((250-(18*ppl)) `div` 2)
 
 setpadColor:: Int -> Color
 setpadColor i
@@ -231,6 +230,7 @@ fordm5 map i max
 --------------- main --------------------
 drawmap:: Map -> IO()
 drawmap map = do
+    clearScreen
     fordm1 map 0 (length (pads map) - 1)
     -- fordm2 map 0 (length (myplayers map))
     setCursorPosition ((y $ (pads map)!!0) + 1) 0

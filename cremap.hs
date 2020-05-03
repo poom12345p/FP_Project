@@ -1,21 +1,18 @@
+module Cremap where
 import Func
 import Control.Monad
 import System.IO
 import System.Console.ANSI
-
+import Map
 -- map cremap(){
+cremap::Int -> IO Int
 cremap chosse = do
     saveCursor
     clearScreen
-    let max = 0
-    let ppl = 0
-    let li = 0
-    let rd = 0
 -- 	//////////////////////////////
 -- 	int pX=60,pY=5;
     let pX = 60
     let pY = 5
-    let comd = 0
     setCursorPosition (pY) (pX-1)
 -- 	cout<<"Choose map size";
     print "Choose map size"
@@ -59,235 +56,166 @@ cremap chosse = do
     setCursorPosition (pY+29) (pX-3)
 -- 	cout<<"Press \"Enter\" to submit";
     print "Press \"Enter\" to submit"
--- 	max =30;ppl=6;li=5;rd=6;
-    let max = 30
-    let ppl = 6
-    let li = 5
-    let rd = 6
     setSGR [SetColor Foreground Vivid White] 
     setSGR [SetColor Background Dull Black]
 -- 		gotoxy(pX+3,10+pY);	
     setCursorPosition (pY+10) (pX+3)
 -- 		cout<<" Small ";
-    print " Small "
+    print "Small"
 
-    setCursorPosition (pY+1) (pX+14)
+    setCursorPosition (pY+14) (pX+1)
 -- 		cout<<" Standard ";
     print " Standard "
-		
--- 		gotoxy(pX+3,18+pY);
-    setCursorPosition (pY+3) (pX+18)
--- 		cout<<" Large ";
-        print " Large "
-		
--- 		gotoxy(pX,22+pY);
+    setCursorPosition (pY+18) (pX+3)
+-- 		cout<<" Standard ";
+    print "Large"
     setCursorPosition (pY+22) (pX)
--- 		cout<<" Costom Map ";
-	print " Costom Map "
-
+-- -- 		cout<<" Costom Map ";
+    print "Costom Map"
+    
     if chosse == 0
-        then 
-            do
+         then 
+             do
                 setCursorPosition (pY+10) (pX+3)
                 psq Vivid Yellow 1
-                setSGR [SetColor Foreground Vivid Red] 
-	            setSGR [SetColor Background Dull Black]
                 print "Small"
                 psq Vivid Yellow 1
-                let max =30
-                let ppl=6
-                let li=5
-                let rd=6
+               
             else if chosse == 1
-                then 
-                    do
-                        setCursorPosition (pY+14) (pX+1)
-                        psq Vivid Yellow 1
-                        setSGR [SetColor Foreground Vivid Red] 
-	                    setSGR [SetColor Background Dull Black]
-                        print "Standard"
-                        psq Vivid Yellow 1
-                        let max =50
-                        let ppl=8
-                        let li=8
-                        let rd=8
+                    then 
+                        do
+                            setCursorPosition (pY+14) (pX+1)
+                            psq Vivid Yellow 1
+                            --setSGR [SetColor Foreground Vivid Red] 
+                            --setSGR [SetColor Background Dull Black]
+                            print "Standard"
+                            psq Vivid Yellow 1
             else if chosse == 2
-                then 
-                    do
-                        setCursorPosition (pY+18) (pX+3)
-                        psq Vivid Yellow 1
-                        setSGR [SetColor Foreground Vivid Red] 
-	                    setSGR [SetColor Background Dull Black]
-                        print "Large"
-                        psq Vivid Yellow 1
-                        let max =100
-                        let ppl=10
-                        let li=10
-                        let rd=10
+                    then 
+                        do
+                            setCursorPosition (pY+18) (pX+3)
+                            psq Vivid Yellow 1
+                            --setSGR [SetColor Foreground Vivid Red] 
+                            --setSGR [SetColor Background Dull Black]
+                            print "Large"
+                            psq Vivid Yellow 1
+                        
             else 
                 do
-                    setCursorPosition (pY+22) (pX)
-                    psq Vivid Yellow 1
-                    setSGR [SetColor Foreground Vivid Red] 
-	                setSGR [SetColor Background Dull Black]
-                    print "Costom Map"
-                    psq Vivid Yellow 1
+                        setCursorPosition (pY+22) (pX)
+                        psq Vivid Yellow 1
+                        --setSGR [SetColor Foreground Vivid Red] 
+                        --setSGR [SetColor Background Dull Black]
+                        print "Costom Map"
+                        psq Vivid Yellow 1
+    
 
--- 			default:
--- 			break;
--- 		}
--- 		colorit(15);
-    setSGR [SetColor Foreground Vivid White] 
-	setSGR [SetColor Background Dull Black]
--- 		comd = getch();
+                    
+--     setSGR [SetColor Foreground Vivid White] 
+-- 	setSGR [SetColor Background Dull Black]
+-- -- 		comd = getch();
     a <- getChar
--- 		PlaySound(TEXT("sound/menu.wav"),NULL,SND_SYNC);
--- 		if(comd =='w')chosse--;
--- 		else if(comd == 's')chosse++;
--- 		chosse = (4+(chosse))%4;
+-- -- 		PlaySound(TEXT("sound/menu.wav"),NULL,SND_SYNC);
+-- -- 		if(comd =='w')chosse--;
+-- -- 		else if(comd == 's')chosse++;
+-- -- 		chosse = (4+(chosse))%4;
     if a == 'w'
             then 
                 cremap ((4+(chosse-1)) `mod` 4)
-            else if a == 'w'
-                then
-                    cremap ((4+(chosse+1)) `mod` 4)
             else if a == 's'
                 then 
                     cremap ((4+(chosse+1)) `mod` 4)
             else if a == 'c'
                 then
-                    return c
+                    return  chosse
             else
-                cremap c
+                cremap chosse
+    
 -- 	}
-	
--- 	if(chosse == 3)
--- 	{
-    if chosse == 3
-        then
-            do
-                clearScreen
-                let pX = 40
-                let pY = 5
--- 			gotoxy(pX+5,pY);
-                setCursorPosition (pY) (pX+5)
--- 			cout<<"Input you map data(number only)";
-                print "Input you map data(number only)"
--- 			pY=8;
-                let pY = 8
--- 			gotoxy(pX,pY);
-                setCursorPosition (pY) (pX)
--- 			for(int i=0;i<12;i++)
--- 			{
-                forM_ [1..11] $ \i -> do
--- 				gotoxy(pX,pY+i);
-                    setCursorPosition (pY+i) (pX)
--- 				psq(0,25);
-                    psq Vivid Black 25
--- 			}
--- 				if(max-2 < li*4 || max-2-(li*4) < rd || ppl > 12 || max<19)
--- 			{
-                if (max-2 < li*4) or (max-2-(li*4) < rd) or (ppl > 12) or (max<19)
-                    then
-                        do
--- 				gotoxy(pX+10,pY-2);
-                            setCursorPosition (pY-2) (pX+10)
--- 				colorit(12);
-                            setSGR [SetColor Foreground Vivid Red] 
-	                        setSGR [SetColor Background Dull Black]
+-- customMap::IO Map	
+-- customMap = do
+--                 clearScreen
+--                 pX<-40
+--                 pY<- 5
+--                 setCursorPosition (pY) (45)
+
+--                 print "Input you map data(number only)"
+--                 pY <- 8
+--                 setCursorPosition (pY) (pX)
+--                 forM_ [1..11] $ \i -> do
+--                     setCursorPosition (pY+i) (pX)
+-- -- 				psq(0,25);
+--                     psq Vivid Black 25
+-- --                 if (max-2 < li*4) or (max-2-(li*4) < rd) or (ppl > 12) or (max<19)
+-- --                     then
+-- --                         do
+-- -- -- 				gotoxy(pX+10,pY-2);
+-- --                             setCursorPosition (pY-2) (pX+10)
+-- -- -- 				colorit(12);
+-- --                             setSGR [SetColor Foreground Vivid Red] 
+-- -- 	                        setSGR [SetColor Background Dull Black]
 				
--- 				cout<<"*You input wrong data.*";
-                            print "*You input wrong data.*"
--- 				PlaySound(TEXT("sound/randpad.wav"),NULL,SND_SYNC);
--- 				colorit(15);
-                            setSGR [SetColor Foreground Vivid White] 
-	                        setSGR [SetColor Background Dull Black]
--- 			}
-                    else 
-                        return ()
--- 			gotoxy(pX,pY);
-                setCursorPosition (pY) (pX)
--- 			cout<<"How many pads do you want?";
-                print "How many pads do you want?"
--- 			gotoxy(pX,++pY);
-                setCursorPosition (pY+1) (pX)
--- 			colorit(12);
-                setSGR [SetColor Foreground Vivid Red] 
-	            setSGR [SetColor Background Dull Black]
--- 			cout<<"> ";
-                print "> "
--- 			colorit(15);
-                setSGR [SetColor Foreground Vivid White] 
-	            setSGR [SetColor Background Dull Black]
--- 			cin>>max;
-                max <- getLine
--- 			PlaySound(TEXT("sound/confirm.wav"),NULL,SND_SYNC);
--- 			pY+=2;
--- 			gotoxy(pX,pY);
-                setCursorPosition (pY+2) (pX)
--- 			cout<<"How many pads do you want per one floor?";
-                print "How many pads do you want per one floor?"
--- 			gotoxy(pX,++pY);
-                setCursorPosition (pY+3) (pX)
--- 			colorit(12);
-                setSGR [SetColor Foreground Vivid Red] 
-	            setSGR [SetColor Background Dull Black]
--- 			cout<<"> ";
-                print "> "
--- 			colorit(15);
-                setSGR [SetColor Foreground Vivid White] 
-	            setSGR [SetColor Background Dull Black]
--- 			cin>>ppl;
-                ppl <- getLine
--- 			PlaySound(TEXT("sound/confirm.wav"),NULL,SND_SYNC);
--- 			pY+=2;
--- 			gotoxy(pX,pY);
-                setCursorPosition (pY+4) (pX)
--- 			cout<<"How many snake and ladder pads doyou want?";
-                print "How many snake and ladder pads doyou want?"
--- 			gotoxy(pX,++pY);
-                setCursorPosition (pY+5) (pX)
--- 			cout<<"(number of snake pads = number of  ladder pads)";
-                print "(number of snake pads = number of  ladder pads)"
--- 			gotoxy(pX,++pY);
-                setCursorPosition (pY+5) (pX)
--- 			colorit(12);
-                setSGR [SetColor Foreground Vivid Red] 
-	            setSGR [SetColor Background Dull Black]
--- 			cout<<"> ";
-                print "> "
--- 			colorit(15);
-                setSGR [SetColor Foreground Vivid White] 
-	            setSGR [SetColor Background Dull Black]
--- 			cin>>li;
-                li <- getLine
--- 			PlaySound(TEXT("sound/confirm.wav"),NULL,SND_SYNC);
--- 			pY+=2;
--- 			gotoxy(pX,pY);
-                setCursorPosition (pY+6) (pX)
--- 			cout<<"How many random pads doyou want? : ";
-                print "How many random pads doyou want? : "
--- 			gotoxy(pX,++pY);
-                setCursorPosition (pY+7) (pX)
--- 			colorit(12);
-                setSGR [SetColor Foreground Vivid Red] 
-	            setSGR [SetColor Background Dull Black]
--- 			cout<<"> ";
-                print "> "
--- 			colorit(15);
-                setSGR [SetColor Foreground Vivid White] 
-	            setSGR [SetColor Background Dull Black]
--- 			cin>>rd;
-                rd <- getLine
--- 			PlaySound(TEXT("sound/confirm.wav"),NULL,SND_SYNC);
--- 		}while(max-2 < li*4 || max-2-(li*4) < rd || ppl > 12 || max<19);
--- 		cin.ignore();
--- 		PlaySound(TEXT("sound/menu.wav"),NULL,SND_SYNC);
--- 	}
+-- -- -- 				cout<<"*You input wrong data.*";
+-- --                             print "*You input wrong data.*"
+-- -- -- 				PlaySound(TEXT("sound/randpad.wav"),NULL,SND_SYNC);
+-- -- -- 				colorit(15);
+-- --                             setSGR [SetColor Foreground Vivid White] 
+-- -- 	                        setSGR [SetColor Background Dull Black]
+-- -- -- 			}
+-- --                     else 
+-- --                         return ()
+--                 setCursorPosition (pY) (pX)
+--                 print "How many pads do you want?"
+--                 setCursorPosition (pY+1) (pX)
+-- -- 			
+--                 setSGR [SetColor Foreground Vivid Red] 
+-- 	            setSGR [SetColor Background Dull Black]
 
--- 	system("cls");
--- 	SetWindow(250,(max/ppl)*7+30);
+--                 print "> "
+-- -- 		
+--                 setSGR [SetColor Foreground Vivid White] 
+-- 	            setSGR [SetColor Background Dull Black]
+-- -- 	
+--                 max <- read getLine ::Int
+--                 setCursorPosition (pY+2) (pX)
 
-    restoreCursor
--- 	return map(max,ppl,li,rd);
--- }
+--                 print "How many pads do you want per one floor?"
+
+--                 setCursorPosition (pY+3) (pX)
+
+--                 setSGR [SetColor Foreground Vivid Red] 
+-- 	            setSGR [SetColor Background Dull Black]
+
+--                 print "> "
+
+--                 setSGR [SetColor Foreground Vivid White] 
+-- 	            setSGR [SetColor Background Dull Black]
+
+--                 ppl <- read getLine ::Int
+
+
+--                 setCursorPosition (pY+4) (pX)
+
+--                 print "How many snake and ladder pads doyou want?"
+
+--                 setCursorPosition (pY+5) (pX)
+
+--                 print "(number of snake pads = number of  ladder pads)"
+
+--                 setCursorPosition (pY+5) (pX)
+--                 setSGR [SetColor Foreground Vivid Red] 
+-- 	            setSGR [SetColor Background Dull Black]
+-- -- 			cout<<"> ";
+--                 print "> "
+-- -- 			colorit(15);
+--                 setSGR [SetColor Foreground Vivid White] 
+-- 	            setSGR [SetColor Background Dull Black]
+-- -- 			cin>>li;
+--                 li <- read getLine ::Int
+
+--                 setCursorPosition (pY+6) (pX)
+
+--                 return (M max ppl li)
+
+-- parseInts :: String -> [Int]
+-- parseInts str = map read (words str)

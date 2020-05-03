@@ -6,15 +6,36 @@ import System.IO (hSetBuffering, hSetEcho, stdin, BufferMode(NoBuffering), getCh
 
 import Func
 import Logogame
+import Map
+import Game
+import Cup
+import Cremap
 
 main :: IO ()
 main = do 
         clearScreen
         comd <-showmeneu 0
-        print comd
+        if comd == 0
+                then
+                 do
+                   mapt <- cremap 0
+                   if mapt == 0
+                           then 
+                                   do  
+                                         drawmap $ newmap 12 6 2
+                        else if mapt == 1
+                                then 
+                                        do
+                                                drawmap $ newmap 24 6 3
+                         else
+                                        do
+                                                drawmap $ newmap 32 8 4
+                                         
+                                        
+        else
+                return ()
                 
 
-       
 
 menu :: IO Integer
 menu = do 
